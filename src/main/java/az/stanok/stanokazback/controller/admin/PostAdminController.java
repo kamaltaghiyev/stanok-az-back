@@ -26,7 +26,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/admin/post")
 @RequiredArgsConstructor
-public class PostController {
+public class PostAdminController {
 
     private final PostService postService;
 

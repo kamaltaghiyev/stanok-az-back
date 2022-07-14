@@ -18,9 +18,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "posts")
-public class Post extends BaseEntity {
-
+@Table(name = "products")
+public class Product extends BaseEntity {
     @Column(name = "title", length = 10240)
     private String title;
     @Column(name = "title_az", length = 10240)
@@ -29,7 +28,7 @@ public class Post extends BaseEntity {
     private String titleRu;
     @Column(name = "slug", length = 1024, unique = true)
     private String slug;
-    @Column(name = "description", length = 10240)
+    @Column(name = "description_us", length = 10240)
     private String description;
     @Column(name = "description_az", length = 10240)
     private String descriptionAz;
@@ -39,6 +38,8 @@ public class Post extends BaseEntity {
     private Integer likeCount = 0;
     @Column(name = "review_count")
     private Integer reviewCount = 0;
+    @Column(name = "buys_count")
+    private Integer buysCount = 0;
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(name = "posts_tags_relation",
             joinColumns = {@JoinColumn(name = "post_id")},

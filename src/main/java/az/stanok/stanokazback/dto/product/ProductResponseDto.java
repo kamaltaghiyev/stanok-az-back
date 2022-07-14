@@ -1,4 +1,4 @@
-package az.stanok.stanokazback.dto.post;
+package az.stanok.stanokazback.dto.product;
 
 import az.stanok.stanokazback.dto.tags.TagResponseDto;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseDto implements Serializable {
+public class ProductResponseDto implements Serializable {
     private Long id;
     private String title;
     private String titleAz;
@@ -23,6 +22,7 @@ public class PostResponseDto implements Serializable {
     private String descriptionRu;
     private Integer likeCount;
     private Integer reviewCount;
+    private Integer buysCount;
     private String createdAt;
     private List<TagResponseDto> tagDtos;
 }

@@ -1,19 +1,17 @@
-package az.stanok.stanokazback.dto.post;
+package az.stanok.stanokazback.dto.product;
 
-import az.stanok.stanokazback.dto.tags.TagResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.List;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseDto implements Serializable {
-    private Long id;
+public class ProductCreateDto implements Serializable {
     private String title;
     private String titleAz;
     private String titleRu;
@@ -21,8 +19,6 @@ public class PostResponseDto implements Serializable {
     private String description;
     private String descriptionAz;
     private String descriptionRu;
-    private Integer likeCount;
-    private Integer reviewCount;
-    private String createdAt;
-    private List<TagResponseDto> tagDtos;
+    @Nullable
+    private List<Long> tagListIds;
 }

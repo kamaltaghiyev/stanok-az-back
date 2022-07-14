@@ -1,13 +1,14 @@
 package az.stanok.stanokazback.service;
 
-import az.stanok.stanokazback.dto.post.PostCreateDto;
-import az.stanok.stanokazback.dto.post.PostResponseDto;
+import az.stanok.stanokazback.dto.product.ProductCreateDto;
+import az.stanok.stanokazback.dto.product.ProductResponseDto;
 import az.stanok.stanokazback.exceptions.core.DorogaException;
 import az.stanok.stanokazback.exceptions.core.NotFoundException;
-import az.stanok.stanokazback.mappers.PostMapper;
+import az.stanok.stanokazback.mappers.ProductMapper;
 import az.stanok.stanokazback.models.Post;
+import az.stanok.stanokazback.models.Product;
 import az.stanok.stanokazback.models.Tag;
-import az.stanok.stanokazback.repo.PostRepo;
+import az.stanok.stanokazback.repo.ProductRepo;
 import az.stanok.stanokazback.repo.TagRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,24 +21,25 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService {
-    private final PostRepo postRepo;
-    private final PostMapper postMapper;
+public class ProductServiceImpl implements ProductService {
+    private final ProductRepo productRepo;
+    private final ProductMapper productMapper;
     private final TagRepo tagRepo;
+
     @Override
-    public PostResponseDto create(PostCreateDto dto) {
-        if (postRepo.findBySlug(dto.getSlug()).isPresent())
+    public ProductResponseDto create(ProductCreateDto createDto) {
+        if (productRepo.findBySlug(createDto.getSlug()).isPresent())
             throw new DorogaException("Post with this slug is already exists");
 
-        Post post = postMapper.toEntity(dto);
-        post = fromTagsIdsToEntity(dto.getTagListIds(), post);
+        Product post = productMapper.toEntity(createDto);
+        post = fromTagsIdsToEntity(createDto.getTagListIds(), post);
 
-        return postMapper.toDto(postRepo.save(post));
+        return productMapper.toDto(productRepo.save(post));
     }
 
     @Override
-    public PostResponseDto update(Long id, PostCreateDto updateDto) {
-        Post existed = postRepo.findById(id).orElseThrow(() -> new NotFoundException(Post.class, id));
+    public ProductResponseDto update(Long id, ProductCreateDto updateDto) {
+        Product existed = productRepo.findById(id).orElseThrow(() -> new NotFoundException(Product.class, id));
         if (updateDto.getTitle() != null)
             existed.setTitle(updateDto.getTitle());
         if (updateDto.getTitleAz() != null)
@@ -54,33 +56,33 @@ public class PostServiceImpl implements PostService {
             existed.setDescriptionRu(updateDto.getDescriptionRu());
         existed = fromTagsIdsToEntity(updateDto.getTagListIds(), existed);
 
-        return postMapper.toDto(postRepo.save(existed));
+        return productMapper.toDto(productRepo.save(existed));
     }
 
     @Override
     public void delete(Long id) {
-        postRepo.deleteById(id);
+        productRepo.deleteById(id);
     }
 
     @Override
-    public Page<PostResponseDto> getAll(int pageNum, int limit) {
-        Page<Post> page = postRepo.findAll(PageRequest.of(pageNum, limit, Sort.by("createdAt").descending()));
-        return page.map(postMapper::toDto);
+    public Page<ProductResponseDto> getAll(int pageNum, int limit) {
+        Page<Product> page = productRepo.findAll(PageRequest.of(pageNum, limit, Sort.by("createdAt").descending()));
+        return page.map(productMapper::toDto);
     }
 
     @Override
-    public PostResponseDto getBySlug(String slug) {
-        Post post = postRepo.findBySlug(slug).orElseThrow(() -> new NotFoundException(Post.class, slug));
-        return postMapper.toDto(post);
+    public ProductResponseDto getBySlug(String slug) {
+        Product post = productRepo.findBySlug(slug).orElseThrow(() -> new NotFoundException(Product.class, slug));
+        return productMapper.toDto(post);
     }
 
     @Override
-    public PostResponseDto getById(Long id) {
-        Post post = postRepo.findById(id).orElseThrow(() -> new NotFoundException(Post.class, id));
-        return postMapper.toDto(post);
+    public ProductResponseDto getById(Long id) {
+        Product post = productRepo.findById(id).orElseThrow(() -> new NotFoundException(Product.class, id));
+        return productMapper.toDto(post);
     }
 
-    private Post fromTagsIdsToEntity(List<Long> ids, Post entity) {
+    private Product fromTagsIdsToEntity(List<Long> ids, Product entity) {
         if (ids != null) {
             List<Tag> tags = new ArrayList<>();
             ids.forEach(tagId -> {

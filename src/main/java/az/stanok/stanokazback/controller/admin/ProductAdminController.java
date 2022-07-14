@@ -1,9 +1,12 @@
 package az.stanok.stanokazback.controller.admin;
 
 import az.stanok.stanokazback.dto.ApiResponse;
-import az.stanok.stanokazback.dto.tags.TagCreateDto;
-import az.stanok.stanokazback.dto.tags.TagResponseDto;
-import az.stanok.stanokazback.service.TagService;
+import az.stanok.stanokazback.dto.post.PostCreateDto;
+import az.stanok.stanokazback.dto.post.PostResponseDto;
+import az.stanok.stanokazback.dto.product.ProductCreateDto;
+import az.stanok.stanokazback.dto.product.ProductResponseDto;
+import az.stanok.stanokazback.service.PostService;
+import az.stanok.stanokazback.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
@@ -22,42 +25,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/admin/tag")
+@RequestMapping("api/v1/admin/product")
 @RequiredArgsConstructor
-public class TagAdminController {
-    private final TagService tagService;
+public class ProductAdminController {
+    private final ProductService postService;
 
     @SneakyThrows
     @PostMapping
-    public ApiResponse<TagResponseDto> create(@RequestBody TagCreateDto request) {
+    public ApiResponse<ProductResponseDto> create(@RequestBody ProductCreateDto request) {
 
-        return ApiResponse.success(tagService.create(request));
+        return ApiResponse.success(postService.create(request));
     }
     @SneakyThrows
     @PutMapping("/{id}")
-    public ApiResponse<TagResponseDto> update(@PathVariable Long id, @RequestBody TagCreateDto request) {
+    public ApiResponse<ProductResponseDto> update(@PathVariable Long id, @RequestBody ProductCreateDto request) {
 
-        return ApiResponse.success(tagService.update(id, request));
+        return ApiResponse.success(postService.update(id, request));
     }
     @SneakyThrows
     @GetMapping
-    public ApiResponse<Page<TagResponseDto>> getAll(
+    public ApiResponse<Page<ProductResponseDto>> getAll(
             @ApiParam(value = "номер страницы", required = true)
             @RequestParam(value = "page", defaultValue = "0") int page,
             @ApiParam(value = "количество карточек информации на странице", required = true)
             @RequestParam(value = "size", defaultValue = "10") int pageSize
     ) {
 
-        return ApiResponse.success(tagService.getAll(page, pageSize));
+        return ApiResponse.success(postService.getAll(page, pageSize));
     }
     @DeleteMapping("/{id}")
     @ApiOperation("Delete posts from list ids")
     public ApiResponse<Void> delete(@PathVariable Long id) {
-        tagService.delete(id);
+        postService.delete(id);
         return ApiResponse.success();
     }
     @GetMapping("/{id}")
-    public ApiResponse<TagResponseDto> getById(@PathVariable Long id) {
-        return ApiResponse.success(tagService.getById(id));
+    public ApiResponse<ProductResponseDto> getById(@PathVariable Long id) {
+        return ApiResponse.success(postService.getById(id));
     }
 }
