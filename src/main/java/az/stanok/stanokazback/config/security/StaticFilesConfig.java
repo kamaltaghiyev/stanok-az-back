@@ -17,7 +17,7 @@ public class StaticFilesConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080", "http://localhost:3000", "https://unplagued.herokuapp.com", "https://unplagued-dev.herokuapp.com", "https://unplagued.org", "https://unplagued-admin.herokuapp.com", "https://www.unplagued.org")
+                .allowedOrigins("http://localhost:8080", "http://localhost:3000", "https://stanokaz-admin.herokuapp.com", "https://unplagued-dev.herokuapp.com", "https://unplagued.org", "https://unplagued-admin.herokuapp.com", "https://www.unplagued.org")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
