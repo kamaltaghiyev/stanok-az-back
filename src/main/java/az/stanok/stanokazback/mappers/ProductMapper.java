@@ -20,7 +20,6 @@ public abstract class ProductMapper {
 
     @Mapping(target = "createdAt", expression = "java(entity.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))")
     @Mapping(target = "tagDtos", expression = "java(entity.getTagsList() != null ? entity.getTagsList().stream().map(tagMapper::toDto).collect(Collectors.toList()) : null)")
-    @Mapping(target = "buysCount", source = "entity.buysCount")
     public abstract ProductResponseDto toDto(Product entity);
 
     @Mapping(target = "tagsList", expression = "java(dto.getTagListIds() != null ? tagRepo.findAllById(dto.getTagListIds()) : null)")
