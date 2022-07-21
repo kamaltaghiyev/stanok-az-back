@@ -1,5 +1,6 @@
 package az.stanok.stanokazback.service;
 
+import az.stanok.stanokazback.dto.post.PostResponseDto;
 import az.stanok.stanokazback.dto.product.ProductCreateDto;
 import az.stanok.stanokazback.dto.product.ProductResponseDto;
 import az.stanok.stanokazback.exceptions.core.DorogaException;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepo;
     private final ProductMapper productMapper;
     private final TagRepo tagRepo;
+    private final ImageService imageServise;
 
     @Override
     public ProductResponseDto create(ProductCreateDto createDto) {
@@ -80,6 +83,18 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto getById(Long id) {
         Product post = productRepo.findById(id).orElseThrow(() -> new NotFoundException(Product.class, id));
         return productMapper.toDto(post);
+    }
+
+    @Override
+    public ProductResponseDto uploadPostImage(Long id, List<MultipartFile> files) {
+        Product post = productRepo.getById(id);
+        for(MultipartFile file : files) {
+            imageServise.uploadProductImage(file, post);
+        }
+
+        ProductResponseDto postResponseDto = productMapper.toDto(productRepo.save(post));
+        postResponseDto.setImageList(imageServise.getAllProductImageLinks(post));
+        return postResponseDto;
     }
 
     private Product fromTagsIdsToEntity(List<Long> ids, Product entity) {

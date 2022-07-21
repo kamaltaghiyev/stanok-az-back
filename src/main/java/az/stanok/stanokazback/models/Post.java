@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class Post extends BaseEntity {
     private Integer likeCount = 0;
     @Column(name = "review_count")
     private Integer reviewCount = 0;
+    @Column(name = "youtube_video", length = 1024)
+    private String youtubeVideo;
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(name = "posts_tags_relation",
             joinColumns = {@JoinColumn(name = "post_id")},

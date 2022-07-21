@@ -25,4 +25,6 @@ public class ProductResponseDto implements Serializable {
     private Integer buysCount;
     private String createdAt;
     private List<TagResponseDto> tagDtos;
+    private List<String> imageList;
+    private String youtubeVideo;
 }

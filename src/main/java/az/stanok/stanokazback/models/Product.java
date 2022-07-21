@@ -40,6 +40,8 @@ public class Product extends BaseEntity {
     private Integer reviewCount = 0;
     @Column(name = "buys_count")
     private Integer buysCount = 0;
+    @Column(name = "youtube_video", length = 1024)
+    private String youtubeVideo;
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(name = "posts_tags_relation",
             joinColumns = {@JoinColumn(name = "post_id")},

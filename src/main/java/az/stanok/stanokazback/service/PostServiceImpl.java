@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class PostServiceImpl implements PostService {
     private final PostRepo postRepo;
     private final PostMapper postMapper;
     private final TagRepo tagRepo;
+    private final ImageService imageServise;
+
     @Override
     public PostResponseDto create(PostCreateDto dto) {
         if (postRepo.findBySlug(dto.getSlug()).isPresent())
@@ -52,6 +55,9 @@ public class PostServiceImpl implements PostService {
             existed.setDescriptionAz(updateDto.getDescriptionAz());
         if (updateDto.getDescriptionRu() != null)
             existed.setDescriptionRu(updateDto.getDescriptionRu());
+        if (updateDto.getYoutubeVideo() != null)
+            existed.setYoutubeVideo(updateDto.getYoutubeVideo());
+
         existed = fromTagsIdsToEntity(updateDto.getTagListIds(), existed);
 
         return postMapper.toDto(postRepo.save(existed));
@@ -78,6 +84,18 @@ public class PostServiceImpl implements PostService {
     public PostResponseDto getById(Long id) {
         Post post = postRepo.findById(id).orElseThrow(() -> new NotFoundException(Post.class, id));
         return postMapper.toDto(post);
+    }
+
+    @Override
+    public PostResponseDto uploadPostImage(Long id, List<MultipartFile> files) {
+        Post post = postRepo.getById(id);
+        for(MultipartFile file : files) {
+            imageServise.uploadPostImage(file, post);
+        }
+
+        PostResponseDto postResponseDto = postMapper.toDto(postRepo.save(post));
+        postResponseDto.setImageList(imageServise.getAllPostImageLinks(post));
+        return postResponseDto;
     }
 
     private Post fromTagsIdsToEntity(List<Long> ids, Post entity) {

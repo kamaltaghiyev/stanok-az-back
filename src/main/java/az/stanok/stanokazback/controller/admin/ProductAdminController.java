@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -62,5 +65,10 @@ public class ProductAdminController {
     @GetMapping("/{id}")
     public ApiResponse<ProductResponseDto> getById(@PathVariable Long id) {
         return ApiResponse.success(postService.getById(id));
+    }
+    @PostMapping("/upload/{id}")
+    @ApiOperation("Upload image product")
+    public ApiResponse<ProductResponseDto> uploadImage(@PathVariable Long id, @RequestParam("file") List<MultipartFile> files) {
+        return ApiResponse.success(postService.uploadPostImage(id, files));
     }
 }

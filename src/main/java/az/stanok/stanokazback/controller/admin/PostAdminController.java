@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -62,5 +63,11 @@ public class PostAdminController {
     @GetMapping("/{id}")
     public ApiResponse<PostResponseDto> getById(@PathVariable Long id) {
         return ApiResponse.success(postService.getById(id));
+    }
+
+    @PostMapping("/upload/{id}")
+    @ApiOperation("Upload image of post")
+    public ApiResponse<PostResponseDto> uploadImage(@PathVariable Long id, @RequestParam("file") List<MultipartFile> files) {
+        return ApiResponse.success(postService.uploadPostImage(id, files));
     }
 }

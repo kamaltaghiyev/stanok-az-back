@@ -4,6 +4,7 @@ import az.stanok.stanokazback.dto.product.ProductCreateDto;
 import az.stanok.stanokazback.dto.product.ProductResponseDto;
 import az.stanok.stanokazback.models.Product;
 import az.stanok.stanokazback.repo.TagRepo;
+import az.stanok.stanokazback.service.ImageService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,12 @@ public abstract class ProductMapper {
     protected TagRepo tagRepo;
     @Autowired
     protected TagMapper tagMapper;
+    @Autowired
+    protected ImageService imageService;
 
     @Mapping(target = "createdAt", expression = "java(entity.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))")
     @Mapping(target = "tagDtos", expression = "java(entity.getTagsList() != null ? entity.getTagsList().stream().map(tagMapper::toDto).collect(Collectors.toList()) : null)")
+    @Mapping(target = "imageList", expression = "java(imageService.getAllProductImageLinks(entity))")
     public abstract ProductResponseDto toDto(Product entity);
 
     @Mapping(target = "tagsList", expression = "java(dto.getTagListIds() != null ? tagRepo.findAllById(dto.getTagListIds()) : null)")

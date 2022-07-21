@@ -25,4 +25,6 @@ public class PostResponseDto implements Serializable {
     private Integer reviewCount;
     private String createdAt;
     private List<TagResponseDto> tagDtos;
+    private List<String> imageList;
+    private String youtubeVideo;
 }

@@ -21,4 +21,6 @@ public class PostCreateDto implements Serializable {
     private String descriptionRu;
     @Nullable
     private List<Long> tagListIds;
+    @Nullable
+    private String youtubeVideo;
 }
