@@ -19,6 +19,7 @@ public class ProductCreateDto implements Serializable {
     private String description;
     private String descriptionAz;
     private String descriptionRu;
+    private String properties;
     @Nullable
     private List<Long> tagListIds;
 }

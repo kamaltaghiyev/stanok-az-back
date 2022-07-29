@@ -30,6 +30,8 @@ public class Post extends BaseEntity {
     private String titleRu;
     @Column(name = "slug", length = 1024, unique = true)
     private String slug;
+    @Column(name = "properties", length = 10240)
+    private String properties;
     @Column(name = "description", length = 10240)
     private String description;
     @Column(name = "description_az", length = 10240)
