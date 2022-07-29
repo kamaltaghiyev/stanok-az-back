@@ -57,6 +57,8 @@ public class ProductServiceImpl implements ProductService {
             existed.setDescriptionAz(updateDto.getDescriptionAz());
         if (updateDto.getDescriptionRu() != null)
             existed.setDescriptionRu(updateDto.getDescriptionRu());
+        if (updateDto.getProperties() != null)
+            existed.setProperties(updateDto.getProperties());
         existed = fromTagsIdsToEntity(updateDto.getTagListIds(), existed);
 
         return productMapper.toDto(productRepo.save(existed));
