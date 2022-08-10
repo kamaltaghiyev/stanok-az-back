@@ -18,9 +18,14 @@ public class ProductResponseDto implements Serializable {
     private String titleRu;
     private String slug;
     private String properties;
+    private String propertiesAz;
+    private String propertiesRu;
     private String description;
     private String descriptionAz;
     private String descriptionRu;
+    private String price;
+    private String priceAz;
+    private String priceRu;
     private Integer likeCount;
     private Integer reviewCount;
     private Integer buysCount;

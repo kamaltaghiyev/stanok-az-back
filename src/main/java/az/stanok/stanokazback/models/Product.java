@@ -26,6 +26,12 @@ public class Product extends BaseEntity {
     private String titleAz;
     @Column(name = "title_ru", length = 10240)
     private String titleRu;
+    @Column(name = "price", length = 10240)
+    private String price;
+    @Column(name = "price_az", length = 10240)
+    private String priceAz;
+    @Column(name = "price_ru", length = 10240)
+    private String priceRu;
     @Column(name = "slug", length = 1024, unique = true)
     private String slug;
     @Column(name = "description_us", length = 10240)
@@ -44,6 +50,10 @@ public class Product extends BaseEntity {
     private String youtubeVideo;
     @Column(name = "properties", length = 10240)
     private String properties;
+    @Column(name = "properties_az", length = 10240)
+    private String propertiesAz;
+    @Column(name = "properties_ru", length = 10240)
+    private String propertiesRu;
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(name = "posts_tags_relation",
             joinColumns = {@JoinColumn(name = "post_id")},
