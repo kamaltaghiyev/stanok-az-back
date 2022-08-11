@@ -36,7 +36,6 @@ public class ProductServiceImpl implements ProductService {
 
         Product post = productMapper.toEntity(createDto);
         post = fromTagsIdsToEntity(createDto.getTagListIds(), post);
-
         return productMapper.toDto(productRepo.save(post));
     }
 
@@ -51,14 +50,28 @@ public class ProductServiceImpl implements ProductService {
             existed.setTitleAz(updateDto.getTitleRu());
         if (updateDto.getSlug() != null)
             existed.setSlug(updateDto.getSlug());
+
         if (updateDto.getDescription() != null)
             existed.setDescription(updateDto.getDescription());
         if (updateDto.getDescriptionAz() != null)
             existed.setDescriptionAz(updateDto.getDescriptionAz());
         if (updateDto.getDescriptionRu() != null)
             existed.setDescriptionRu(updateDto.getDescriptionRu());
+
         if (updateDto.getProperties() != null)
             existed.setProperties(updateDto.getProperties());
+        if (updateDto.getPropertiesAz() != null)
+            existed.setPropertiesAz(updateDto.getPropertiesAz());
+        if (updateDto.getPropertiesRu() != null)
+            existed.setPropertiesRu(updateDto.getPropertiesRu());
+
+        if (updateDto.getPrice() != null)
+            existed.setPrice(updateDto.getPrice());
+        if (updateDto.getPriceAz() != null)
+            existed.setPriceAz(updateDto.getPriceAz());
+        if (updateDto.getPriceRu() != null)
+            existed.setPriceRu(updateDto.getPriceRu());
+
         existed = fromTagsIdsToEntity(updateDto.getTagListIds(), existed);
 
         return productMapper.toDto(productRepo.save(existed));

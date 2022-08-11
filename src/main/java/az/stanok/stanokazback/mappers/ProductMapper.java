@@ -24,8 +24,20 @@ public abstract class ProductMapper {
     @Mapping(target = "createdAt", expression = "java(entity.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))")
     @Mapping(target = "tagDtos", expression = "java(entity.getTagsList() != null ? entity.getTagsList().stream().map(tagMapper::toDto).collect(Collectors.toList()) : null)")
     @Mapping(target = "imageList", expression = "java(imageService.getAllProductImageLinks(entity))")
+    @Mapping(target = "propertiesAz", source = "entity.propertiesAz")
+    @Mapping(target = "propertiesRu", source = "entity.propertiesRu")
+    @Mapping(target = "properties", source = "entity.properties")
+    @Mapping(target = "priceAz", source = "entity.priceAz")
+    @Mapping(target = "priceRu", source = "entity.priceRu")
+    @Mapping(target = "price", source = "entity.price")
     public abstract ProductResponseDto toDto(Product entity);
 
     @Mapping(target = "tagsList", expression = "java(dto.getTagListIds() != null ? tagRepo.findAllById(dto.getTagListIds()) : null)")
+    @Mapping(target = "propertiesAz", source = "dto.propertiesAz")
+    @Mapping(target = "propertiesRu", source = "dto.propertiesRu")
+    @Mapping(target = "properties", source = "dto.properties")
+    @Mapping(target = "priceAz", source = "dto.priceAz")
+    @Mapping(target = "priceRu", source = "dto.priceRu")
+    @Mapping(target = "price", source = "dto.price")
     public abstract Product toEntity(ProductCreateDto dto);
 }
