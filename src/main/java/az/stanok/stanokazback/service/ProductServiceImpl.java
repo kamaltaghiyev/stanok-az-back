@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
             existed.setTitleAz(updateDto.getTitleAz());
         if (updateDto.getTitleRu() != null)
             existed.setTitleRu(updateDto.getTitleRu());
-        
+
         if (updateDto.getSlug() != null)
             existed.setSlug(updateDto.getSlug());
 
