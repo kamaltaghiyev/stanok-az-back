@@ -1,6 +1,7 @@
 package az.stanok.stanokazback.service;
 
 import az.stanok.stanokazback.dto.product.ImageDto;
+import az.stanok.stanokazback.exceptions.core.NotFoundException;
 import az.stanok.stanokazback.models.Image;
 import az.stanok.stanokazback.models.Post;
 import az.stanok.stanokazback.models.Product;
@@ -81,7 +82,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void deleteImage(Long id) {
-        Image image = imageRepo.getById(id);
+        Image image = imageRepo.findById(id).orElseThrow(() -> new NotFoundException(Image.class, id));
         image.setProduct(null);
+        imageRepo.save(image);
     }
 }
