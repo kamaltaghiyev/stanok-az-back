@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "images")
-public class Image extends BaseEntity{
+public class Image extends BaseEntity implements Serializable {
     private UUID uuid;
     private String url;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

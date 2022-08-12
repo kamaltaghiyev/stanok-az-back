@@ -1,5 +1,6 @@
 package az.stanok.stanokazback.service;
 
+import az.stanok.stanokazback.dto.product.ImageDto;
 import az.stanok.stanokazback.models.Image;
 import az.stanok.stanokazback.models.Post;
 import az.stanok.stanokazback.models.Product;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -66,9 +68,16 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Image> getAllProductImageLinks(Product post) {
+    public List<ImageDto> getAllProductImageLinks(Product post) {
         List<Image> images = imageRepo.findAllByProduct(post);
-        return images;
+        List<ImageDto> imageDtos = new ArrayList<>();
+        for (Image image : images) {
+            ImageDto imageDto = new ImageDto();
+            imageDto.setId(image.getId());
+            imageDto.setUrl(image.getUrl());
+            imageDtos.add(imageDto);
+        }
+        return imageDtos;
     }
 
     @Override
