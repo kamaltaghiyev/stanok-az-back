@@ -35,7 +35,6 @@ public class ImageServiceImpl implements ImageService {
         File convertedFile = convertMultiPartToFile(file);
         Map<String, Object> resultImage = cloudinaryService.upload(convertedFile);
         image.setUrl((String) resultImage.get("secure_url"));
-        image.setPost(post);
 
         return imageRepo.save(image);
     }
