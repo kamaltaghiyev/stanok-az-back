@@ -21,10 +21,7 @@ import java.util.UUID;
 public class Image extends BaseEntity implements Serializable {
     private UUID uuid;
     private String url;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "post_id")
-    private Post post;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 }
