@@ -113,6 +113,11 @@ public class ProductServiceImpl implements ProductService {
         return postResponseDto;
     }
 
+    @Override
+    public void deletePostImage(Long id) {
+        imageServise.deleteImage(id);
+    }
+
     private Product fromTagsIdsToEntity(List<Long> ids, Product entity) {
         if (ids != null) {
             List<Tag> tags = new ArrayList<>();

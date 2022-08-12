@@ -66,8 +66,13 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<String> getAllProductImageLinks(Product post) {
+    public List<Image> getAllProductImageLinks(Product post) {
         List<Image> images = imageRepo.findAllByProduct(post);
-        return images.stream().map(Image::getUrl).collect(Collectors.toList());
+        return images;
+    }
+
+    @Override
+    public void deleteImage(Long id) {
+        imageRepo.deleteById(id);
     }
 }

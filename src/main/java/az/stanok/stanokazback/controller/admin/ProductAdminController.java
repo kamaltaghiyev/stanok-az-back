@@ -71,4 +71,10 @@ public class ProductAdminController {
     public ApiResponse<ProductResponseDto> uploadImage(@PathVariable Long id, @RequestParam("file") List<MultipartFile> files) {
         return ApiResponse.success(postService.uploadPostImage(id, files));
     }
+    @DeleteMapping("/upload/{id}")
+    @ApiOperation("Upload image product")
+    public ApiResponse<Void> deleteImage(@PathVariable Long id) {
+        postService.deletePostImage(id);
+        return ApiResponse.success();
+    }
 }

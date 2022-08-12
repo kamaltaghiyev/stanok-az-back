@@ -11,5 +11,6 @@ public interface ImageService {
     Image uploadPostImage(MultipartFile file, Post post);
     Image uploadProductImage(MultipartFile file, Product product);
     List<String> getAllPostImageLinks(Post post);
-    List<String> getAllProductImageLinks(Product product);
+    List<Image> getAllProductImageLinks(Product product);
+    void deleteImage(Long id);
 }
