@@ -81,6 +81,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void deleteImage(Long id) {
-        imageRepo.deleteById(id);
+        Image image = imageRepo.getById(id);
+        image.setProduct(null);
     }
 }
